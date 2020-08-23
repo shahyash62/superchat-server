@@ -4,16 +4,16 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import http from 'http';
 import https from 'https';
-import fs from 'fs';
+// import fs from 'fs';
 import SocketIO from 'socket.io';
 import { MONGO_URI } from './helper_functions/config';
 import { makeChatServer } from './routes/socketRoutes/connection';
 
 // IMPORTING CERTS
-var options = {
-    key: fs.readFileSync('./key.pem'),
-    cert: fs.readFileSync('./cert.pem'),
-};
+// var options = {
+//     key: fs.readFileSync('./key.pem'),
+//     cert: fs.readFileSync('./cert.pem'),
+// };
 
 dotenv.config();
 // IMPORTING ROUTES
@@ -64,6 +64,6 @@ server.listen(port, () => {
     console.log(`server running on port ${port}`);
 });
 
-secureServer.listen(443, () => {
-    console.log(`https server running on port 443`);
-});
+// secureServer.listen(443, () => {
+//     console.log(`https server running on port 443`);
+// });
