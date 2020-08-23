@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { PRIVATE_KEY } from './config';
+// import { PRIVATE_KEY } from './config';
 import { findUser } from './UserCheck';
 
 export async function getHash(inputString: string): Promise<string> {
@@ -28,13 +28,13 @@ export async function comparePassword(plaintextPass: string, hashedPass: string)
 }
 
 export function getToken(username: string): string {
-    const token = jwt.sign({ username }, PRIVATE_KEY, { expiresIn: '7d' });
+    const token = jwt.sign({ username }, process.env.PRIVATE_KEY || '', { expiresIn: '7d' });
     return token;
 }
 
 export async function verifyToken(token: string): Promise<object | string> {
     try {
-        return (jwt.verify(token, PRIVATE_KEY) as any).username;
+        return (jwt.verify(token, process.env.PRIVATE_KEY || '') as any).username;
     } catch (error) {
         return error;
     }

@@ -50,7 +50,6 @@ app.use(function (req, res, next) {
     res.append('Access-Control-Allow-Methods', '*');
     next();
 });
-
 // USING ROUTES
 app.use('/signup', signup);
 app.use('/login', login);

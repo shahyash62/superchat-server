@@ -1,9 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import { findUser } from '../helper_functions/UserCheck';
-import { PRIVATE_KEY } from '../helper_functions/config';
 import { getToken } from '../helper_functions/AuthenticationHelpers';
-import { callbackify } from 'util';
 const UserCred = require('../models/UserCred');
 const UserData = require('../models/UserData');
 const MessageQueue = require('../models/MessageQueue');
