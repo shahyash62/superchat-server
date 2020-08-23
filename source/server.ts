@@ -35,7 +35,7 @@ const port = process.env.PORT || 5000;
 // CONNECTION TO MONGODB
 const MONGO_URI: string = process.env.MONGO_URI || '';
 mongoose
-    .connect(MONGO_URI, { dbName: 'Zen', useNewUrlParser: true })
+    .connect(MONGO_URI, { dbName: 'Zen', useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('db connected'))
     .catch((err) => console.log(`error while connecting to db: ${err}`));
 
