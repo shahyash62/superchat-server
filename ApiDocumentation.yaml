@@ -1,0 +1,10 @@
+Post Image:
+    url: host/posts/postimage
+    method: post
+    description: API for posting a new image
+    protected: true
+    required fields:
+        username: Username of the user who posted the image
+        usersWithAccess: Array of users with access to the image (posting user's friends)
+        comments: Array of comments
+        filePath: File path where to save the image on local storage
