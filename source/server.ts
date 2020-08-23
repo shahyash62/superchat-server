@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import http from 'http';
-import https from 'https';
+// import https from 'https';
 // import fs from 'fs';
 import SocketIO from 'socket.io';
 import { MONGO_URI } from './helper_functions/config';
@@ -25,7 +25,7 @@ const postImage = require('./routes/posts/postimage');
 // Socket Initialization
 const app = express();
 const server = http.createServer(app);
-const secureServer = https.createServer(options, app);
+// const secureServer = https.createServer(options, app);
 const io = SocketIO(server);
 makeChatServer(io);
 
