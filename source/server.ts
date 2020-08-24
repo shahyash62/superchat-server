@@ -1,13 +1,12 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-// import dotenv from 'dotenv';
 import http from 'http';
 // import https from 'https';
 // import fs from 'fs';
 import SocketIO from 'socket.io';
-// import { MONGO_URI } from './helper_functions/config';
 import { makeChatServer } from './routes/socketRoutes/connection';
+import { configureEnvVars } from './helper_functions/config';
 
 // IMPORTING CERTS
 // var options = {
@@ -15,7 +14,9 @@ import { makeChatServer } from './routes/socketRoutes/connection';
 //     cert: fs.readFileSync('./cert.pem'),
 // };
 
-// dotenv.config();
+// Configuring enviornment variables
+configureEnvVars();
+
 // IMPORTING ROUTES
 const signup = require('./routes/signup');
 const login = require('./routes/login');
@@ -33,7 +34,7 @@ makeChatServer(io);
 const port = process.env.PORT || 5000;
 
 // CONNECTION TO MONGODB
-const MONGO_URI: string = process.env.MONGO_URI || '';
+const MONGO_URI: string = process.env.MONGO_URI || 'error';
 mongoose
     .connect(MONGO_URI, { dbName: 'Zen', useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('db connected'))
