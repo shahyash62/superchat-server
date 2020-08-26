@@ -21,7 +21,8 @@ configureEnvVars();
 const signup = require('./routes/signup');
 const login = require('./routes/login');
 const addContact = require('./routes/profile/addContact');
-const postImage = require('./routes/posts/postimage');
+const refreshToken = require('./routes/refreshToken');
+// const postImage = require('./routes/posts/postimage');
 
 // Socket Initialization
 const app = express();
@@ -46,7 +47,7 @@ app.use(bodyParser.json());
 // CORS CONTROL
 app.use(function (req, res, next) {
     res.append('Access-Control-Allow-Origin', '*');
-    res.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, authentication');
     res.append('Access-Control-Expose-Headers', '*');
     res.append('Access-Control-Allow-Methods', '*');
     next();
@@ -54,6 +55,7 @@ app.use(function (req, res, next) {
 // USING ROUTES
 app.use('/signup', signup);
 app.use('/login', login);
+app.use('/refreshtoken', refreshToken);
 app.use('/addcontact', addContact);
 // app.use('/posts', postImage);
 app.get('/', (req, res) => {

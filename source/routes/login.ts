@@ -18,10 +18,11 @@ router.post('/', async (req, res) => {
             emptyQueue(userMessageQueue);
             return;
         } else {
-            res.status(401).json({ errorCode: auth.errorCode });
+            return res.status(401).json({ errorCode: auth.errorCode });
         }
     } catch (error) {
         console.log('login error: ', error);
+        return res.status(500).end();
     }
 });
 

@@ -3,13 +3,13 @@ import jwt from 'jsonwebtoken';
 // import { PRIVATE_KEY } from './config';
 import { findUser } from './UserCheck';
 
-export async function getHash(inputString: string): Promise<string> {
-    let hash: string;
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(inputString, salt, (err, hash) => {});
-    });
-    return 'hello';
-}
+// export async function getHash(inputString: string): Promise<string> {
+//     let hash: string;
+//     bcrypt.genSalt(10, (err, salt) => {
+//         bcrypt.hash(inputString, salt, (err, hash) => {});
+//     });
+//     return 'hello';
+// }
 
 export async function authenticateUser(username: string, password: string): Promise<{ errorCode: number | null }> {
     const user = await findUser(username);
@@ -28,15 +28,28 @@ export async function comparePassword(plaintextPass: string, hashedPass: string)
 }
 
 export function getToken(username: string): string {
-    const token = jwt.sign({ username }, process.env.PRIVATE_KEY || '', { expiresIn: '7d' });
+    const token = jwt.sign({ username }, process.env.PRIVATE_KEY || '', { expiresIn: '1d' });
     return token;
 }
 
-export async function verifyToken(token: string): Promise<object | string> {
+export async function verifyToken(token: string, username: string): Promise<boolean> {
     try {
-        return (jwt.verify(token, process.env.PRIVATE_KEY || '') as any).username;
+        return (jwt.verify(token, process.env.PRIVATE_KEY || '') as any).username === username;
     } catch (error) {
-        return error;
+        console.log(error);
+        return false;
+    }
+}
+
+export async function refreshToken(token: string, username: string): Promise<boolean | string> {
+    try {
+        if (await verifyToken(token, username)) {
+            return getToken(username);
+        }
+        throw 'token invalid';
+    } catch (error) {
+        console.log(error);
+        return false;
     }
 }
 

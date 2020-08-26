@@ -62,8 +62,7 @@ function connectSocket(nameSpace: SocketIO.Namespace): void {
 export async function authenticationSocketMiddleware(socket: SocketIO.Socket, next: (err?: any) => void) {
     console.log('socket middleware called');
     const token = socket.handshake.query.token;
-    const username = await verifyToken(token);
-    if (username === socket.handshake.query.username) return next();
+    if (await verifyToken(token, socket.handshake.query.username)) return next();
     return next(new Error('authentication error'));
 }
 interface UserToSocketMap {
